@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewreport" content="width=device-width, initial-scale=1">
+	<title>Editanto selecbox c/ JQuery</title>
+	<link rel="stylesheet" type="text/css" href="../bootstrap.min.css">
+	<script type="text/javascript" src="../jquery-3.3.1.min.js"></script>
+</head>
+<body>
+
+	<div class="container">
+		<h2 class="h2 mt-5">Popular um combo box com JSON</h2>
+
+		<div class="row">
+			<div class="col-md-3">
+				<form id="sample-form">
+					<div class="form-group" name= "select_uf" id="select_uf">
+						<label>Selecione a UF</label>
+						<select name="uf" id="uf" class="form-control">
+						</select>
+					</div>
+				</form>
+			</div>
+		</div>
+
+	</div>
+
+</body>
+
+</html>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		var options = '<option value=""></option>';
+
+		$.ajax({
+			url: 'json_uf.php',
+			success: function(result){
+				var obj = JSON.parse(result);
+
+				obj.forEach(function(o, index){
+            		console.log(o.uf);
+            		options += '<option value='+o.sigla+'>'+o.uf+'</option>';
+           	 	});
+
+           	 	$('#uf').html(options);
+			}
+		});
+	});
+</script>
